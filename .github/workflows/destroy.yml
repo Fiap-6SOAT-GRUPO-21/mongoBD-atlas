@@ -1,0 +1,53 @@
+name: "Terraform Destroy"
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+env:
+  TF_VAR_atlas_public_key: ${{ secrets.ATLAS_PUBLIC_KEY }}
+  TF_VAR_atlas_private_key: ${{ secrets.ATLAS_PRIVATE_KEY }}
+  TF_VAR_atlas_org_id: ${{ secrets.ATLAS_ORG_ID }}
+  TF_VAR_atlas_username: ${{ secrets.ATLAS_DB_USERNAME }}
+  TF_VAR_atlas_password: ${{ secrets.ATLAS_DB_PASSWORD }}
+
+jobs:
+  terraform-destroy:
+    name: "Terraform Destroy MONGODBATALAS"
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: terraform
+        shell: bash
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v4
+        with:
+          version: 'latest'
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
+
+      - name: Terraform Init mongodbatalas
+        run: terraform init -reconfigure -backend-config="bucket=${{ secrets.AWS_BUCKET_NAME }}" -backend-config="key=estado/terraformMONGODBATALAS.tfstate" -backend-config="region=us-east-1"
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+
+      - name: Terraform Destroy mongodbatalas
+        run: terraform destroy -auto-approve
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
