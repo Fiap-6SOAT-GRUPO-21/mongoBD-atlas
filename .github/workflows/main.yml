@@ -6,6 +6,7 @@ on:
     branches:
       - develop
       - main
+      - test/**
     paths:
       - terraform/**
   pull_request:
@@ -18,6 +19,7 @@ env:
   TF_VAR_atlas_private_key: ${{ secrets.ATLAS_PRIVATE_KEY }}
   TF_VAR_atlas_org_id: ${{ secrets.ATLAS_ORG_ID }}
   TF_VAR_atlas_db_username: ${{ secrets.ATLAS_DB_USERNAME }}
+  TF_VAR_atlas_db_password: ${{ secrets.ATLAS_DB_PASSWORD }}
 
 jobs:
   terraform:
