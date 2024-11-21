@@ -13,6 +13,12 @@ on:
       - terraform/**
   workflow_dispatch:
 
+env:
+  TF_VAR_atlas_public_key: ${{ secrets.ATLAS_PUBLIC_KEY }}
+  TF_VAR_atlas_private_key: ${{ secrets.ATLAS_PRIVATE_KEY }}
+  TF_VAR_atlas_org_id: ${{ secrets.ATLAS_ORG_ID }}
+  TF_VAR_atlas_db_username: ${{ secrets.ATLAS_DB_USERNAME }}
+
 jobs:
   terraform:
     name: 'Terraform'
@@ -55,11 +61,6 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
-          ATLAS_PUBLIC_KEY: ${{ secrets.ATLAS_PUBLIC_KEY }}
-          ATLAS_PRIVATE_KEY: ${{ secrets.ATLAS_PRIVATE_KEY }}
-          ATLAS_ORG_ID: ${{ secrets.ATLAS_ORG_ID }}
-          ATLAS_DB_USERNAME: ${{ secrets.ATLAS_DB_USERNAME }}
-          ATLAS_DB_PASSWORD: ${{ secrets.ATLAS_DB_PASSWORD }}
         run: terraform plan -no-color
         continue-on-error: true
 
@@ -70,8 +71,3 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
-          ATLAS_PUBLIC_KEY: ${{ secrets.ATLAS_PUBLIC_KEY }}
-          ATLAS_PRIVATE_KEY: ${{ secrets.ATLAS_PRIVATE_KEY }}
-          ATLAS_ORG_ID: ${{ secrets.ATLAS_ORG_ID }}
-          ATLAS_DB_USERNAME: ${{ secrets.ATLAS_DB_USERNAME }}
-          ATLAS_DB_PASSWORD: ${{ secrets.ATLAS_DB_PASSWORD }}
