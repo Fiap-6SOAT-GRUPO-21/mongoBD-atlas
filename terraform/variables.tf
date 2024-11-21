@@ -33,16 +33,16 @@ variable "api_payments_database_credentials" {
   description = "Credentials for database creation"
 
   type = object({
-    cidr              = string
-    project_name      = string
-    cluster_name      = string
-    database_name     = string
+    cidr          = string
+    project_name  = string
+    cluster_name  = string
+    database_name = string
   })
 
   default = {
-    cidr              = "0.0.0.0/0"
-    project_name      = "tech-challenge-payments"
-    cluster_name      = "api-payments-cluster"
-    database_name     = "apipayments"
+    cidr          = "0.0.0.0/0"
+    project_name  = "tech-challenge-payments"
+    cluster_name  = "api-payments-cluster"
+    database_name = "apipayments"
   }
 }
