@@ -1,12 +1,10 @@
 module "api_payments_atlas" {
   source            = "./modules/mongo-atlas"
   cluster_name      = var.api_payments_database_credentials.cluster_name
-  database_password = var.api_payments_database_credentials.password
-  database_username = var.api_payments_database_credentials.username
-  org_id            = var.api_payments_database_credentials.org_id
+  database_password = var.atlas_password
+  database_username = var.atlas_username
+  org_id            = var.atlas_org_id
   project_name      = var.api_payments_database_credentials.project_name
-  atlas_private_key = var.api_payments_database_credentials.atlas_private_key
-  atlas_public_key  = var.api_payments_database_credentials.atlas_public_key
   cidr              = var.api_payments_database_credentials.cidr
   database_name     = var.api_payments_database_credentials.database_name
 }
