@@ -26,16 +26,6 @@ variable "cluster_name" {
   description = "Name of the cluster"
 }
 
-variable "atlas_public_key" {
-  type        = string
-  description = "MongoDB Atlas Public API Key"
-}
-
-variable "atlas_private_key" {
-  type        = string
-  description = "MongoDB Atlas Private API Key"
-}
-
 variable "cidr" {
     type        = string
     description = "CIDR block"
