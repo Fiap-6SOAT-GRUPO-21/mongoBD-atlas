@@ -12,7 +12,7 @@ module "api_payments_atlas" {
 resource "aws_ssm_parameter" "atlas_cluster_name" {
   name  = "/techchallenge/api_payments/atlas/cluster_name"
   type  = "String"
-  value = "mongodb+srv://${var.api_payments_database_credentials.username}:${var.api_payments_database_credentials.password}@${module.api_payments_atlas.mongodb_cluster_name}.mongodb.net"
+  value = "mongodb+srv://${var.atlas_username}:${var.atlas_password}@${module.api_payments_atlas.mongodb_cluster_name}.mongodb.net"
 }
 
 resource "aws_ssm_parameter" "atlas_payments_name" {
